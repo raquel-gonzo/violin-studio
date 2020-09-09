@@ -5,3 +5,9 @@ module.exports.createNewStudent = (req, res) => {
         .then(newStudent => res.json({ student: newStudent }))
         .catch( err => res.json({ message: "Error: ", error: err}));
 }
+
+module.exports.findAllStudents = (req, res) => {
+    Student.find()
+        .then(allStudents => res.json({ students: allStudents}))
+        .catch(err => res.json({ message: "Something went wrong", error: err}))
+}
