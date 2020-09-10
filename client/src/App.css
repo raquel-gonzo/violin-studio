@@ -1,14 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Solway&display=swap');
+
 .App {
   text-align: center;
+  font-family: 'Solway', serif;
 }
 
-.reg {
+.form-group {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-input, button, select{
+.form-control, button, select{
   width: 150px;
   margin-bottom: 20px;
 }

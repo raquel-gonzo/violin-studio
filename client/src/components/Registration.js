@@ -44,21 +44,21 @@ const Registration = () => {
 
     return(
         <div >
-            <form className="reg">
+            <form className="reg" className="form-group">
                 <label>First Name: </label>
                 {errs.firstName ? (
                     <p>{errs.firstName.message}</p>
                 ) : null}
-                <input type="text" onChange={(e) => setFirstName(e.target.value)} ></input>
+                <input className="form-control" type="text" onChange={(e) => setFirstName(e.target.value)} ></input>
 
                 <label>Last Name: </label>
                 {errs.lastName ? (
                     <p>{errs.lastName.message}</p>
                 ) : null}
-                <input type="text" onChange={(e) => setLastName(e.target.value)}></input>
+                <input className="form-control" type="text" onChange={(e) => setLastName(e.target.value)}></input>
 
                 <label>Grade in School: </label>
-                <select onChange={(e) => setYearInSchool(e.target.value)}>
+                <select  className="form-control" onChange={(e) => setYearInSchool(e.target.value)}>
                     <option>1st</option>
                     <option>2nd</option>
                     <option>3rd</option>
@@ -79,13 +79,13 @@ const Registration = () => {
                 {errs.school ? (
                     <p>{errs.school.message}</p>
                 ) : null}
-                <input type="text" onChange={(e) => setSchool(e.target.value)}></input>
+                <input className="form-control" type="text" onChange={(e) => setSchool(e.target.value)}></input>
 
                 <label>Phone Number: </label>
                 {errs.phone ? (
                     <p>{errs.phone.message}</p>
                 ) : null}
-                <input type="tel" onChange={(e) => setPhone(e.target.value)}></input>
+                <input className="form-control" type="tel" onChange={(e) => setPhone(e.target.value)}></input>
 
                 <label>Email: </label>
                 {/* {isEmailInvalid() ? 
@@ -95,20 +95,21 @@ const Registration = () => {
                 {errs.email ? (
                     <p>{errs.email.message}</p>
                 ) : null}
-                <input type="email" onChange={(e) => setEmail(e.target.value)}></input>
+                <input className="form-control" type="email" onChange={(e) => setEmail(e.target.value)}></input>
 
                 <label>Password: </label>
                 {errs.password ? (
                     <p>{errs.password.message}</p>
                 ) : null}
-                <input type="password" onChange={(e) => setPassword(e.target.value)}></input>
+                <input className="form-control" type="password" onChange={(e) => setPassword(e.target.value)}></input>
 
                 <label>Confirm Password: </label>
-                <input type="password" onChange={(e) => setConfirmPassword(e.target.value)}></input>
+                <input className="form-control" type="password" onChange={(e) => setConfirmPassword(e.target.value)}></input>
 
                 {/* disable this button if password and confirm 
                     password values are different */}
                 <button 
+                className="btn btn-info"
                 // disabled={isPasswordInvalid() || isEmailInvalid()} 
                 onClick={onSubmitHandler}>Register!</button>
             </form>
