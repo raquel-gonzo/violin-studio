@@ -13,22 +13,28 @@
 
 .form-control, button, select{
   width: 250px;
-  margin-bottom: 20px;
 }
 
 #reg-header{
-  margin-top: 40px;
   margin-bottom: 30px;
   padding-top: 20px;
 }
 
 #reg{
-margin: 0px auto;
-width: 85%;
-background-color: lightgray;
-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: 30px auto;
+  padding-bottom: 20px;
+  width: 85%;
+  background-color: lightgray;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 body{
   background-color: #B0E0E6;
+}
+
+.error-message {
+  width: 100%;
+  margin-top: .25rem;
+  font-size: 80%;
+  color: #dc3545;
 }

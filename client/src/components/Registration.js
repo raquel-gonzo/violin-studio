@@ -49,22 +49,26 @@ const Registration = () => {
         <div className="form-row">
           <div className="form-group col-md-6">
             <label>First Name: </label>
-            {errs.firstName ? <p>{errs.firstName.message}</p> : null}
             <input
               className="form-control"
               type="text"
               onChange={(e) => setFirstName(e.target.value)}
             ></input>
+            {errs.firstName ? (
+              <span className="error-message">{errs.firstName.message}</span>
+            ) : null}
           </div>
 
-          <div class="form-group col-md-6">
+          <div className="form-group col-md-6">
             <label>Last Name: </label>
-            {errs.lastName ? <p>{errs.lastName.message}</p> : null}
             <input
               className="form-control"
               type="text"
               onChange={(e) => setLastName(e.target.value)}
             ></input>
+            {errs.lastName ? (
+              <span className="error-message">{errs.lastName.message}</span>
+            ) : null}
           </div>
         </div>
 
@@ -73,7 +77,8 @@ const Registration = () => {
             <label>Grade in School: </label>
             <select
               className="form-control"
-              onChange={(e) => setYearInSchool(e.target.value)}>
+              onChange={(e) => setYearInSchool(e.target.value)}
+            >
               <option>1st</option>
               <option>2nd</option>
               <option>3rd</option>
@@ -90,50 +95,56 @@ const Registration = () => {
               <option>Adult Student</option>
             </select>
           </div>
+
           <div className="form-group col-md-6">
             <label>School Name: </label>
-            {errs.school ? <p>{errs.school.message}</p> : null}
             <input
               className="form-control"
               type="text"
               onChange={(e) => setSchool(e.target.value)}
             ></input>
+            {errs.school ? (
+              <span className="error-message">{errs.school.message}</span>
+            ) : null}
           </div>
         </div>
 
         <div className="form-row">
           <div className="form-group col-md-6">
             <label>Phone Number: </label>
-            {errs.phone ? <p>{errs.phone.message}</p> : null}
             <input
               className="form-control"
               type="tel"
               onChange={(e) => setPhone(e.target.value)}
             ></input>
+            {errs.phone ? (
+              <span className="error-message">{errs.phone.message}</span>
+            ) : null}
           </div>
           <div className="form-group col-md-6">
             <label>Email: </label>
-            {/* {isEmailInvalid() ? 
-                        <span> please enter a valid email</span>
-                        : null} */}
-            {errs.email ? <p>{errs.email.message}</p> : null}
             <input
               className="form-control"
               type="email"
               onChange={(e) => setEmail(e.target.value)}
             ></input>
+            {errs.email ? (
+              <span className="error-message">{errs.email.message}</span>
+            ) : null}
           </div>
         </div>
 
         <div className="form-row">
           <div className="form-group col-md-6">
             <label>Password: </label>
-            {errs.password ? <p>{errs.password.message}</p> : null}
             <input
               className="form-control"
               type="password"
               onChange={(e) => setPassword(e.target.value)}
             ></input>
+            {errs.password ? (
+              <span className="error-message">{errs.password.message}</span>
+            ) : null}
           </div>
           <div className="form-group col-md-6">
             <label>Confirm Password: </label>

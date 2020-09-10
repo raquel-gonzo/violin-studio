@@ -60,16 +60,16 @@ const StudentSchema = new mongoose.Schema({
 
 const Student = mongoose.model("Student", StudentSchema);
 
-// StudentSchema.virtual('confirmPassword')
-//     .get( () => this._confirmPassword)
-//     .set( value => this._confirmPassword = value);
+StudentSchema.virtual('confirmPassword')
+    .get( () => this._confirmPassword)
+    .set( value => this._confirmPassword = value);
 
-// StudentSchema.pre('validate', function(next) {
-//     if (this.password !== this.confirmPassword) {
-//         this.invalidate('confirmPassword', 'Passwords must match.')
-//     }
-//     next();
-// })
+StudentSchema.pre('validate', function(next) {
+    if (this.password !== this.confirmPassword) {
+        this.invalidate('confirmPassword', 'Passwords must match.')
+    }
+    next();
+})
 
 StudentSchema.pre('save', function(next) {
     bcrypt.hash(this.password, 10)
