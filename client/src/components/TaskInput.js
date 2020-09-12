@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 
-const TaskInput = (props) => {
+const TaskInput = () => {
     const [task, setTask] = useState("")
     const [list, setList] = useState([])
 
