@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const Student = require("../models/student.model");
 
 router.post("/register", async (req, res) => {
@@ -84,17 +85,52 @@ router.post("/register", async (req, res) => {
 
     return res.status(200).json({ msg: "Success!" });
   } catch (err) {
-    res.status(500).json({ err });
-    //res.status(500).json({ error: err. message (or err.msg)})
+    res.status(500).json({ error: err.message });
   }
 });
 
 // after validating that the user is the correct one to log in, create a JWT to determine how long the user will stay logged in for.
 router.post("/login", async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password } = req.body;   // destructuring the post req.
+
+    //validate --> we can't login if nothing is input.
+    if (!email || ! password){ 
+        return res
+        .status(400)
+        .json({ msg: "Email and Password are required." });
+    }
+    // does the pw belong to the corresponding email?
+    const student = await Student.findOne({ email: email })
+
+    // if the student does not exist
+    if (!student){
+        return res
+        .status(400)
+        .json({ msg: "There is not account associated with that email."});
+    }
+
+    //match the passwords
+    const isMatch = await bcrypt.compare(password, student.password);
+    if (!isMatch){
+        return res
+        .status(400)
+        .json({ msg: "Invalid login credentials."});
+    }
+
+    // if there is a user registered in the database, give them a json web token.
+    const token = jwt.sign({ id: student._id} , process.env.JWT_SECRET ) // from the student document, the id (postman) is points to who is logged in. the token will retrieve the id of the currently logged in user. Create a JWT secret.
+    res.json({
+        token,
+        student: {
+            id: student._id,
+            firstName: student.firstName,
+            email: student.email,
+        }
+    });
+
   } catch (err) {
-    res.status(500).json({ err });
+    res.status(500).json({ error: err.message }); 
   }
 });
 
