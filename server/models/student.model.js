@@ -1,48 +1,30 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
 
 const StudentSchema = new mongoose.Schema({
     firstName: {
         type: String,
-        required: [
-            true,
-            "First name is required" 
-        ]
+        required: true
     },
-    // lastName: {
-    //     type: String,
-    //     required: [
-    //         true,
-    //         "Last name is required"
-    //     ]
-    // },
-    // yearInSchool: {
-    //     type: String,
-    //     required: [
-    //         true,
-    //         "Student's grade is required"
-    //     ]
-    // },
-    // school: {
-    //     type: String,
-    //     required: [
-    //         true,
-    //         "School name is required"
-    //     ]
-    // },
-    // phone: {
-    //     type: Number,
-    //     required: [
-    //         true,
-    //         "A phone number is required"
-    //     ]
-    // },
+    lastName: {
+        type: String,
+        required: true
+    },
+    yearInSchool: {
+        type: String,
+        required: true
+    },
+    school: {
+        type: String,
+        required: true
+    },
+    phone: {
+        type: Number,
+        required: true
+    },
     email: {
         type: String,
-        required: [
-            true, 
-            "Email is required"
-        ],
+        required: true,
         validate: {
             validator: val => /^([\w-\.]+@([\w-]+\.)+[\w-]+)?$/.test(val),
             message: "Please enter a valid email"
@@ -50,11 +32,8 @@ const StudentSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: [
-            true,
-            "Password is required"
-        ],
-        minlength: [7, "Password must be at least 7 characters."]
+        required: true,
+        // minlength: [7, "Password must be at least 7 characters."]
     },
     tasks: {
         type: Array
