@@ -12,10 +12,12 @@ const Login = () => {
 
     const handleUN = (e, username) => {
         setUsername(e.target.value);
+        console.log(username)
     }
 
     const handlePW = (e, password) => {
         setPassword(e.target.value);
+        console.log(password)
     }
 
     return(
