@@ -11,16 +11,16 @@
   align-items: center;
 }
 
-.form-control, button, select{
+/* .form-control, button, select{
   width: 250px;
-}
+} */
 
-#reg-header{
+.reg-header{
   margin-bottom: 30px;
   padding-top: 20px;
 }
 
-#reg{
+.reg{
   margin: 30px auto;
   padding-bottom: 20px;
   width: 85%;
@@ -37,4 +37,26 @@ body{
   margin-top: .25rem;
   font-size: 80%;
   color: #dc3545;
+}
+
+ #login-btn{
+  width: 150px;
+} 
+
+#portal-header{
+  display: flex;
+  justify-content: space-between;
+  padding: 40px;
+}
+
+button{
+  height: fit-content;
+}
+
+.flatIO-element{
+  margin-top: 20px;
+}
+
+#task-btn{
+  margin-top: 15px;
 }

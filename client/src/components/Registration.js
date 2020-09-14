@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from '@reach/router';
 import axios from "axios";
 
 const Registration = () => {
@@ -43,8 +44,8 @@ const Registration = () => {
   // }
 
   return (
-    <div id="reg">
-      <h1 id="reg-header">Register</h1>
+    <div className="reg">
+      <h1 className="reg-header">Register</h1>
       <form className="form-group">
         <div className="form-row">
           <div className="form-group col-md-6">
@@ -165,6 +166,7 @@ const Registration = () => {
         >
           Register!
         </button>
+        <Link to = "/login">Log in</Link>
       </form>
     </div>
   );
