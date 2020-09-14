@@ -2,6 +2,7 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Student = require("../models/student.model");
+const auth = require("../middleware/auth");
 
 router.post("/register", async (req, res) => {
   try {
@@ -92,46 +93,66 @@ router.post("/register", async (req, res) => {
 // after validating that the user is the correct one to log in, create a JWT to determine how long the user will stay logged in for.
 router.post("/login", async (req, res) => {
   try {
-    const { email, password } = req.body;   // destructuring the post req.
+    const { email, password } = req.body; // destructuring the post req.
 
     //validate --> we can't login if nothing is input.
-    if (!email || ! password){ 
-        return res
-        .status(400)
-        .json({ msg: "Email and Password are required." });
+    if (!email || !password) {
+      return res.status(400).json({ msg: "Email and Password are required." });
     }
     // does the pw belong to the corresponding email?
-    const student = await Student.findOne({ email: email })
+    const student = await Student.findOne({ email: email });
 
     // if the student does not exist
-    if (!student){
-        return res
+    if (!student) {
+      return res
         .status(400)
-        .json({ msg: "There is not account associated with that email."});
+        .json({ msg: "There is not account associated with that email." });
     }
 
     //match the passwords
     const isMatch = await bcrypt.compare(password, student.password);
-    if (!isMatch){
-        return res
-        .status(400)
-        .json({ msg: "Invalid login credentials."});
+    if (!isMatch) {
+      return res.status(400).json({ msg: "Invalid login credentials." });
     }
 
     // if there is a user registered in the database, give them a json web token.
-    const token = jwt.sign({ id: student._id} , process.env.JWT_SECRET ) // from the student document, the id (postman) is points to who is logged in. the token will retrieve the id of the currently logged in user. Create a JWT secret.
+    const token = jwt.sign({ id: student._id }, process.env.JWT_SECRET); // from the student document, the id (postman) is points to who is logged in. the token will retrieve the id of the currently logged in user. Create a JWT secret.
     res.json({
-        token,
-        student: {
-            id: student._id,
-            firstName: student.firstName,
-            email: student.email,
-        }
+      token,
+      student: {
+        id: student._id,
+        firstName: student.firstName,
+        email: student.email,
+      },
     });
-
   } catch (err) {
-    res.status(500).json({ error: err.message }); 
+    res.status(500).json({ error: err.message });
   }
+});
+
+router.post("/tokenIsValid", async (req, res) => {
+  try {
+    const token = req.header("x-auth-token");
+    if (!token) return res.json(false);
+
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    if (!verified) return res.json(false);
+
+    const student = await Student.findById(verified.id);
+    if (!student) return res.json(false);
+
+    return res.json(true);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.get("/", auth, async (req, res) => {
+  const student = await Student.findById(req.student);
+  res.json({
+    firstName: student.firstName,
+    id: student._id
+  });
 });
 
 module.exports = router;
