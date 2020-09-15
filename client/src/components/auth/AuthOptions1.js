@@ -1,6 +1,6 @@
 // buttons that appear --> determined by whether a student is logged in or not.
 import React, { useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory} from "react-router-dom";
 import StudentContext from "../../context/StudentContext";
 
 export default function AuthOptions() {
@@ -10,6 +10,7 @@ export default function AuthOptions() {
 
   const register = () => history.push("/register");
   const login = () => history.push("/login");
+
   const logout = () => {
       setStudentData({
           token: undefined,
@@ -20,7 +21,7 @@ export default function AuthOptions() {
 
   return (
     <nav className="auth-options">
-      {/* Conditional rendering for  */}
+      {/* Conditional rendering for if there is a logged in student, show the logout button. */}
       {studentData.student ? (
         <button className="btn btn-light btn-size btn-nav" onClick={logout}>Logout</button>
       ) : (

@@ -169,8 +169,37 @@ router.get("/", auth, async (req, res) => {
   const student = await Student.findById(req.student);
   res.json({
     firstName: student.firstName,
+    lastName: student.lastName,
+    tasks: student.tasks,
     id: student._id
   });
+});
+
+router.put("/registerTask", auth, async (req, res) => {
+  try {
+
+    if (req.body.tasks.length === 0) {
+      return;
+    }
+    const update = { tasks: req.body.tasks }
+    const student = await Student.findOneAndUpdate({_id: req.body.tasks[0].studentId}, update, {
+      new: true
+    });
+
+    if (!student) {
+      res.json({
+        message: "student is null"
+      })
+    }
+    res.json({
+      firstName: student.firstName,
+      lastName: student.lastName,
+      tasks: student.tasks,
+      id: student._id
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 module.exports = router;

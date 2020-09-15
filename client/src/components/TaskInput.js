@@ -1,25 +1,49 @@
-import React, { useState } from "react";
-// import axios from "axios";
+import React, { useState, useContext, useEffect } from "react";
+import axios from "axios";
+import StudentContext from "../context/StudentContext";
+import List from './List';
 
 const TaskInput = () => {
-  const [task, setTask] = useState("");
-  const [list, setList] = useState([]);
+  const {studentData} = useContext(StudentContext);
+  const [task, setTask] = useState({
+    title: "",
+    studentId: ""
+  });
+  const [tasks, setTasks] = useState([]);
 
-  // const saveTasks = (e) => {
-  //   e.preventDefault();
-  //   axios.put("http://localhost:8000/api/students/tasks", {
-  //     tasks: list,
-  //   });
-  // };
+  // once studentData.students is defined, set it to tasks in state
+  useEffect(() => {
+    if (studentData.student) {
+      setTasks(studentData.student.tasks);
+    }
+  }, studentData.student);
 
   const handleChange = (e) => {
-    setTask(e.target.value);
+    setTask({
+      title: e.target.value,
+      studentId: studentData.student ? studentData.student.id : ""
+    });
   };
 
-  const submitHandler = (e, task) => {
+  const submitHandler = async (e, task) => {
     e.preventDefault();
-    setList([...list, task]);
-    console.log(task);
+    const token = localStorage.getItem("auth-token");
+
+    if (!token || !task) return;
+
+    axios.post("http://localhost:8000/tasks/", 
+      task, 
+      { headers: { "x-auth-token": token } },
+    )
+    const newTasks = [...tasks, task];
+    
+    axios.put("http://localhost:8000/students/registerTask", 
+      { 
+        tasks: newTasks 
+      },
+      { headers: { "x-auth-token": token } },
+    )
+    setTasks(newTasks);
   };
 
   return (
@@ -43,20 +67,20 @@ const TaskInput = () => {
       </form>
 
       <div>
+
+        {/* <List /> */}
+
         <ul>
-          {list.map((task, index) => {
+          {tasks.map((task, index) => {
             return (
-              <li key={index}>
-                {" "}
-                {task} <input type="checkbox" />
+              <li key={index}> 
+                {task.title} <input type="checkbox" />
               </li>
             );
           })}
         </ul>
       </div>
-      {/* <button className="btn btn-light" onClick={saveTasks}>
-        Save Tasks
-      </button> */}
+
     </div>
   );
 };

@@ -36,5 +36,18 @@ router.get("/all", auth, async (req, res) => {
   }
 })
 
+router.delete("/:id", auth, async (req, res) => {
+  // make sure student is deleting a task that belongs to them.
+  const task = await Task.findOne({ studentId: req.student, _id: req.params.id });
+  if (!task)
+    return res
+    .status(400)
+    .json({ 
+      msg: "No task found with this ID that belongs to this student." 
+    });
+  // if the id is something that can be deleted:
+  const deletedTask = await Task.findByIdAndDelete(req.params.id);
+  res.json(deletedTask);
+})
 
 module.exports = router;

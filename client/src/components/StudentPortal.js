@@ -1,12 +1,26 @@
-import React from 'react';
+import React, {useEffect, useContext } from 'react';
+import { useHistory } from "react-router-dom";
+import StudentContext from "../context/StudentContext";
 import TaskInput from './TaskInput';
 
+
 const StudentPortal = () => {
+
+    const {studentData} = useContext(StudentContext);
+    // const history = useHistory();
+
+    // useEffect(() => {
+    //     if (!studentData.student) history.push("/portal");
+    // }, [studentData, history])
+
+
 
     return(
         <div className="reg">
             <div id="portal-header">
-                <h1 className="reg-header">Welcome, _____ </h1>
+                <h1 className="reg-header">Welcome 
+                    {studentData && studentData.student ? ", " + studentData.student.firstName : "!"} 
+                </h1>
                 {/* <button className="btn-size" className="btn btn-light">Log out</button> */}
             </div>
             <h3>Practice Journal:</h3>

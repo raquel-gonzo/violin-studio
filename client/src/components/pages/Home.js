@@ -6,7 +6,7 @@ export default function Home ()  {
     const {studentData} = useContext(StudentContext);
     const history = useHistory();
 
-    //if logged out, redirect to the home page.
+    //if logged out, redirect to the login page.
     useEffect(() => {
         if (!studentData.student) history.push("/login");
     }, [studentData, history])

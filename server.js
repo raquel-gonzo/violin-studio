@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 8000;   // environment variable.
 
 // set up mongoose
 require('./server/config/mongoose.config');
+mongoose.set('useFindAndModify', false);
 
 mongoose.connect(
     process.env.MONGODB_CONNECTION_STRING,

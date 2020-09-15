@@ -28,9 +28,9 @@ export default function Login() {
       console.log("loginRes.data");
       console.log(loginRes.data);
       localStorage.setItem("auth-token", loginRes.data.token);
-      history.push("/");
+      history.push("/portal");
     } catch (error) {
-      error.response.data.msg && setError(error.response.data.msg);
+      error.response && error.response.data.msg && setError(error.response.data.msg);
     }
   };
 

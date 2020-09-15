@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import StudentContext from "../context/StudentContext";
+
 
 const List = (props) => {
+
+    const {studentData} = useContext(StudentContext);
+
+
     return(
         <div>
             <ul>
-            {props.list.map((task, index) => {
+            {studentData.studetnt.List.map((task, index) => {
                 return <li key={index}> {task} <input type="checkbox"/>
                 </li>
             })}
