@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import StudentContext from "../../context/StudentContext";
 
 import axios from "axios";
+import ErrorNotice from "../../misc/ErrorNotice";
 
 const Registration = () => {
   const [firstName, setFirstName] = useState("");
@@ -13,76 +14,50 @@ const Registration = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [errs, setErrs] = useState({});
+  const [error, setError] = useState("");
 
   const { setStudentData } = useContext(StudentContext);
   const history = useHistory();
 
   const submit = async (e) => {
-    e.preventDefault(); 
-    const newStudent = {
-      firstName,
-      lastName,
-      yearInSchool,
-      school,
-      phone,
-      email,
-      password,
-      confirmPassword,
-    };
+    try {
+      e.preventDefault();
+      const newStudent = {
+        firstName,
+        lastName,
+        yearInSchool,
+        school,
+        phone,
+        email,
+        password,
+        confirmPassword,
+      };
 
-    const registerResponse = await axios.post(
-      "http://localhost:8000/students/register",
-      newStudent
-    );
+      const registerResponse = await axios.post(
+        "http://localhost:8000/students/register",
+        newStudent
+      );
 
-    setStudentData({
-      token: registerResponse.data.token,
-      student: registerResponse.data.student,
-    });
+      setStudentData({
+        token: registerResponse.data.token,
+        student: registerResponse.data.student,
+      });
 
-    console.log("registerResponse.data");
-    console.log(registerResponse.data);
-    localStorage.setItem("auth-token", registerResponse.data.token);
-    history.push("/");
+      console.log("registerResponse.data");
+      console.log(registerResponse.data);
+      localStorage.setItem("auth-token", registerResponse.data.token);
+      history.push("/");
+    } catch (error) {
+      error.response.data.msg && setError(error.response.data.msg);
+    }
   };
-
-
-
-
-  // const onSubmitHandler = (e) => {
-  //   e.preventDefault();
-  //   axios
-  //     .post("http://localhost:8000/api/students/new", {
-  //       firstName,
-  //       lastName,
-  //       yearInSchool,
-  //       school,
-  //       phone,
-  //       email,
-  //       password,
-  //     })
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       if (res.data.error.errors) {
-  //         setErrs(res.data.error.errors);
-  //       }
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
-  // const isPasswordInvalid = () => {
-  //     return password.length < 8 || password !== confirmPassword;
-  // }
-
-  // const isEmailInvalid = () => {
-  //     const emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]+)?$/;
-  //     return !emailRegex.test(email);
-  // }
 
   return (
     <div className="reg">
       <h1 className="reg-header">Register</h1>
+      {error && (
+        <ErrorNotice message={error} clearError={() => setError(undefined)} />
+      )}
       <form className="form-group">
         <div className="form-row">
           <div className="form-group col-md-6">
@@ -92,9 +67,6 @@ const Registration = () => {
               type="text"
               onChange={(e) => setFirstName(e.target.value)}
             ></input>
-            {errs.firstName ? (
-              <span className="error-message">{errs.firstName.message}</span>
-            ) : null}
           </div>
 
           <div className="form-group col-md-6">
@@ -104,9 +76,9 @@ const Registration = () => {
               type="text"
               onChange={(e) => setLastName(e.target.value)}
             ></input>
-            {errs.lastName ? (
-              <span className="error-message">{errs.lastName.message}</span>
-            ) : null}
+            {/* {error.lastName ? (
+              <span className="error-message">{error.lastName.message}</span>
+            ) : null} */}
           </div>
         </div>
 
@@ -141,9 +113,9 @@ const Registration = () => {
               type="text"
               onChange={(e) => setSchool(e.target.value)}
             ></input>
-            {errs.school ? (
-              <span className="error-message">{errs.school.message}</span>
-            ) : null}
+            {/* {error.school ? (
+              <span className="error-message">{error.school.message}</span>
+            ) : null} */}
           </div>
         </div>
 
@@ -155,9 +127,9 @@ const Registration = () => {
               type="tel"
               onChange={(e) => setPhone(e.target.value)}
             ></input>
-            {errs.phone ? (
-              <span className="error-message">{errs.phone.message}</span>
-            ) : null}
+            {/* {error.phone ? (
+              <span className="error-message">{error.phone.message}</span>
+            ) : null} */}
           </div>
           <div className="form-group col-md-6">
             <label>Email: </label>
@@ -166,9 +138,9 @@ const Registration = () => {
               type="email"
               onChange={(e) => setEmail(e.target.value)}
             ></input>
-            {errs.email ? (
-              <span className="error-message">{errs.email.message}</span>
-            ) : null}
+            {/* {error.email ? (
+              <span className="error-message">{error.email.message}</span>
+            ) : null} */}
           </div>
         </div>
 
@@ -180,9 +152,9 @@ const Registration = () => {
               type="password"
               onChange={(e) => setPassword(e.target.value)}
             ></input>
-            {errs.password ? (
-              <span className="error-message">{errs.password.message}</span>
-            ) : null}
+            {/* {error.password ? (
+              <span className="error-message">{error.password.message}</span>
+            ) : null} */}
           </div>
           <div className="form-group col-md-6">
             <label>Confirm Password: </label>
@@ -196,7 +168,7 @@ const Registration = () => {
 
         {/* disable this button if password and confirm 
                     password values are different */}
-         <button
+        <button
           className="btn btn-light"
           // disabled={isPasswordInvalid() || isEmailInvalid()}
           onClick={submit}
