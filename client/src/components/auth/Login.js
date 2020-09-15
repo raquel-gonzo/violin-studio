@@ -1,48 +1,45 @@
 import React, { useState, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 import StudentContext from "../../context/StudentContext";
+import ErrorNotice from "../../misc/ErrorNotice";
 
-
-export default function Login () {
-
+export default function Login() {
   const [firstName, setFirstName] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const { setStudentData } = useContext(StudentContext);
   const history = useHistory();
 
-  // const handleFN = (e, username) => {
-  //   setFirstName(e.target.value);
-  //   console.log(username);
-  // };
-
-  // const handlePW = (e, password) => {
-  //   setPassword(e.target.value);
-  //   console.log(password);
-  // };
-
   const submit = async (e) => {
-    e.preventDefault(); 
-    const loginStudent = { firstName, password };
-    const loginRes = await axios.post(
-      "http://localhost:8000/students/login", 
-      loginStudent
-    );
-    setStudentData({
-      token: loginRes.data.token,
-      student: loginRes.data.student,
-    });
+    try {
+      e.preventDefault();
+      const loginStudent = { firstName, password };
+      const loginRes = await axios.post(
+        "http://localhost:8000/students/login",
+        loginStudent
+      );
+      setStudentData({
+        token: loginRes.data.token,
+        student: loginRes.data.student,
+      });
 
-    console.log("loginRes.data");
-    console.log(loginRes.data);
-    localStorage.setItem("auth-token", loginRes.data.token);
-    history.push("/");
+      console.log("loginRes.data");
+      console.log(loginRes.data);
+      localStorage.setItem("auth-token", loginRes.data.token);
+      history.push("/");
+    } catch (error) {
+      error.response.data.msg && setError(error.response.data.msg);
+    }
   };
 
   return (
     <div className="reg">
       <h1 className="reg-header">Login</h1>
+      {error && (
+        <ErrorNotice message={error} clearError={() => setError(undefined)} />
+      )}
       <form className="form-group">
         <div className="form-group col-md-6">
           <label>First name: </label>
@@ -68,4 +65,4 @@ export default function Login () {
       {/* <Link to="/register">Register</Link> */}
     </div>
   );
-};
+}

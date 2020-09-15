@@ -1,7 +1,15 @@
-import React from 'react';
-import { Link } from "react-router-dom";
+import React, {useEffect, useContext } from 'react';
+import { Link, useHistory } from "react-router-dom";
+import StudentContext from "../../context/StudentContext";
 
-const Home = () => {
+export default function Home ()  {
+    const {studentData} = useContext(StudentContext);
+    const history = useHistory();
+
+    //if logged out, redirect to the home page.
+    useEffect(() => {
+        if (!studentData.student) history.push("/login");
+    }, [studentData])
 
     return(
         <div>
@@ -15,4 +23,3 @@ const Home = () => {
     )
 }
 
-export default Home;
