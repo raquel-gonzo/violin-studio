@@ -28,7 +28,7 @@ mongoose.connect(
 .catch(err => console.log('Something went wrong when connecting to the DB ', err));
 
 // set up routes
-app.use("/students", require("./server/routes/tutorial.routes"));
+app.use("/students", require("./server/routes/student.routes"));
 app.use("/tasks", require("./server/routes/task.routes"));
 
 app.listen(PORT, () => {

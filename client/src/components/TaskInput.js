@@ -13,10 +13,12 @@ const TaskInput = () => {
 
   // once studentData.students is defined, set it to tasks in state
   useEffect(() => {
-    if (studentData.student) {
+    console.log("studentData");
+    console.log(studentData);
+    if (studentData.student && studentData.student.tasks) {
       setTasks(studentData.student.tasks);
     }
-  }, studentData.student);
+  }, [studentData.student]);
 
   const handleChange = (e) => {
     setTask({
@@ -71,7 +73,7 @@ const TaskInput = () => {
         {/* <List /> */}
 
         <ul>
-          {tasks.map((task, index) => {
+          {tasks && tasks.map((task, index) => {
             return (
               <li key={index}> 
                 {task.title} <input type="checkbox" />

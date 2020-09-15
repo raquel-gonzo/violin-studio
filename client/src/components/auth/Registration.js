@@ -46,7 +46,7 @@ const Registration = () => {
       console.log("registerResponse.data");
       console.log(registerResponse.data);
       localStorage.setItem("auth-token", registerResponse.data.token);
-      history.push("/");
+      history.push("/portal");
     } catch (error) {
       error.response.data.msg && setError(error.response.data.msg);
     }
@@ -175,7 +175,6 @@ const Registration = () => {
         >
           Register!
         </button>
-        {/* <Link to="/login">Log in</Link>  */}
       </form>
     </div>
   );

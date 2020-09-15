@@ -140,7 +140,7 @@ router.post("/login", async (req, res) => {
       student: {
         id: student._id,
         firstName: student.firstName,
-        // email: student.email,
+        tasks: student.tasks
       },
     });
   } catch (err) {

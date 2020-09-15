@@ -7,11 +7,13 @@ import TaskInput from './TaskInput';
 const StudentPortal = () => {
 
     const {studentData} = useContext(StudentContext);
-    // const history = useHistory();
+    const history = useHistory();
 
-    // useEffect(() => {
-    //     if (!studentData.student) history.push("/portal");
-    // }, [studentData, history])
+    useEffect(() => {
+        const authToken = localStorage.getItem("auth-token");
+
+        if (!authToken && !studentData.student) history.push("/login");
+    }, [studentData.student])
 
 
 
@@ -25,7 +27,7 @@ const StudentPortal = () => {
             </div>
             <h3>Practice Journal:</h3>
             <div>
-                < TaskInput />
+                <TaskInput />
             </div>  
 
             <div>
