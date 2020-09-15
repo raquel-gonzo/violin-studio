@@ -111,20 +111,20 @@ router.post("/register", async (req, res) => {
 // after validating that the user is the correct one to log in, create a JWT to determine how long the user will stay logged in for.
 router.post("/login", async (req, res) => {
   try {
-    const { email, password } = req.body; // destructuring the post req.
+    const { firstName, password } = req.body; // destructuring the post req.
 
     //validate --> we can't login if nothing is input.
-    if (!email || !password) {
-      return res.status(400).json({ msg: "Email and Password are required." });
+    if (!firstName || !password) {
+      return res.status(400).json({ msg: "First Name and Password are required." });
     }
     // does the pw belong to the corresponding email?
-    const student = await Student.findOne({ email: email });
+    const student = await Student.findOne({ firstName: firstName });
 
     // if the student does not exist
     if (!student) {
       return res
         .status(400)
-        .json({ msg: "There is not account associated with that email." });
+        .json({ msg: "There is not account associated with that name." });
     }
 
     //match the passwords

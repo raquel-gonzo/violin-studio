@@ -1,25 +1,43 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
-import StudentContext from '../../context/StudentContext';
+import { Link, useHistory } from "react-router-dom";
+import axios from 'axios';
+import StudentContext from "../../context/StudentContext";
 
 
-const Login = () => {
-  const [username, setUsername] = useState("");
+export default function Login () {
+
+  const [firstName, setFirstName] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    console.log();
-  };
+  const { setStudentData } = useContext(StudentContext);
+  const history = useHistory();
 
-  const handleUN = (e, username) => {
-    setUsername(e.target.value);
-    console.log(username);
-  };
+  // const handleFN = (e, username) => {
+  //   setFirstName(e.target.value);
+  //   console.log(username);
+  // };
 
-  const handlePW = (e, password) => {
-    setPassword(e.target.value);
-    console.log(password);
+  // const handlePW = (e, password) => {
+  //   setPassword(e.target.value);
+  //   console.log(password);
+  // };
+
+  const submit = async (e) => {
+    e.preventDefault(); 
+    const loginStudent = { firstName, password };
+    const loginRes = await axios.post(
+      "http://localhost:8000/students/login", 
+      loginStudent
+    );
+    setStudentData({
+      token: loginRes.data.token,
+      student: loginRes.data.student,
+    });
+
+    console.log("loginRes.data");
+    console.log(loginRes.data);
+    localStorage.setItem("auth-token", loginRes.data.token);
+    history.push("/");
   };
 
   return (
@@ -27,10 +45,10 @@ const Login = () => {
       <h1 className="reg-header">Login</h1>
       <form className="form-group">
         <div className="form-group col-md-6">
-          <label>Username: </label>
+          <label>First name: </label>
           <input
             className="form-control"
-            onChange={handleUN}
+            onChange={(e) => setFirstName(e.target.value)}
             type="text"
           ></input>
         </div>
@@ -38,12 +56,12 @@ const Login = () => {
           <label>Password: </label>
           <input
             className="form-control"
-            onChange={handlePW}
+            onChange={(e) => setPassword(e.target.value)}
             type="password"
           ></input>
         </div>
 
-        <button id="login-btn" className="btn btn-light" onClick={handleClick}>
+        <button id="login-btn" className="btn btn-light" onClick={submit}>
           Login
         </button>
       </form>
@@ -51,5 +69,3 @@ const Login = () => {
     </div>
   );
 };
-
-export default Login;
