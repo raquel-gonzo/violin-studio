@@ -1,11 +1,12 @@
 
 const mongoose = require('mongoose');
 
-const TaskSchema = new mongoose.Schema({
-    name: String,
-    completed: Boolean
+const todoSchema = new mongoose.Schema({
+    title: {type: String, required: true},
+
+    // who the tasks belong to
+    studentId: {type: String, required: true}
+
 }, {timestamps: true});
 
-const Task = mongoose.model('Task', TaskSchema)
-
-module.exports = Task;
+module.exports = Todo = mongoose.model("todo", todoSchema)
