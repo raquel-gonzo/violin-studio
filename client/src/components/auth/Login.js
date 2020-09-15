@@ -47,7 +47,7 @@ const Login = () => {
           Login
         </button>
       </form>
-      <Link to="/register">Register</Link>
+      {/* <Link to="/register">Register</Link> */}
     </div>
   );
 };

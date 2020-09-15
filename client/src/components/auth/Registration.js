@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import StudentContext from "../../context/StudentContext";
 
 import axios from "axios";
@@ -15,10 +15,11 @@ const Registration = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errs, setErrs] = useState({});
 
-  // const { setStudentData } = useContext(StudentContext);
+  const { setStudentData } = useContext(StudentContext);
+  const history = useHistory();
 
   const submit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
     const newStudent = {
       firstName,
       lastName,
@@ -29,29 +30,24 @@ const Registration = () => {
       password,
       confirmPassword,
     };
-    const loginRes = await axios.post("http://localhost:8000/students/register", {
-      firstName,
-      lastName,
-      yearInSchool,
-      school,
-      phone,
-      email,
-      password,
-      confirmPassword
+
+    const registerResponse = await axios.post(
+      "http://localhost:8000/students/register",
+      newStudent
+    );
+
+    setStudentData({
+      token: registerResponse.data.token,
+      student: registerResponse.data.student,
     });
-    // setStudentData({
-    //   token: loginRes.data.token,
-    //   student: loginRes.data.student,
-    // });
-    console.log("loginRes.data");
-    console.log(loginRes.data);
-    localStorage.setItem("auth-token", loginRes.data.token);
+
+    console.log("registerResponse.data");
+    console.log(registerResponse.data);
+    localStorage.setItem("auth-token", registerResponse.data.token);
+    history.push("/");
   };
 
-  // const registerRes = await axios.post(
-  //   "http://localhost:8000/students/register",
-  //   newStudent
-  // );
+
 
 
   // const onSubmitHandler = (e) => {
@@ -200,14 +196,14 @@ const Registration = () => {
 
         {/* disable this button if password and confirm 
                     password values are different */}
-        <button
+         <button
           className="btn btn-light"
           // disabled={isPasswordInvalid() || isEmailInvalid()}
           onClick={submit}
         >
           Register!
         </button>
-        <Link to="/login">Log in</Link>
+        {/* <Link to="/login">Log in</Link>  */}
       </form>
     </div>
   );
