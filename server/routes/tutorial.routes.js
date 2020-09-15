@@ -15,9 +15,9 @@ router.post("/register", async (req, res) => {
       phone,
       email,
       password,
-      passwordCheck,
+      confirmPassword,
     } = req.body;
-    // const { firstName, email, password, passwordCheck} = req.body;
+    // const { firstName, email, password, confirmPassword} = req.body;
 
     //validate
     if (!firstName) {
@@ -50,11 +50,11 @@ router.post("/register", async (req, res) => {
       return res.status(400).json({ msg: "Password is required." });
     }
 
-    if (!passwordCheck) {
+    if (!confirmPassword) {
       return res.status(400).json({ msg: "Confirm your password." });
     }
 
-    if (password !== passwordCheck) {
+    if (password !== confirmPassword) {
       return res.status(400).json({ msg: "Passwords don't match." });
     }
 
@@ -80,9 +80,27 @@ router.post("/register", async (req, res) => {
       email,
       password: passwordHash,
     });
+    console.log("newStudent");
+    console.log(newStudent);
 
     const savedStudent = await newStudent.save();
-    res.json(savedStudent);
+    console.log("savedStudent");
+    console.log(savedStudent);
+    const foundStudent = await Student.findOne({
+      email: savedStudent.email
+    });
+    // if there is a user registered in the database, give them a json web token.
+    const token = await jwt.sign({ id: foundStudent._id }, process.env.JWT_SECRET); // from the student document, the id (postman) is points to who is logged in. the token will retrieve the id of the currently logged in user. Create a JWT secret.
+
+    res.json({
+      token,
+      student: {
+        id: foundStudent._id,
+        firstName: foundStudent.firstName,
+        // email: savedStudent.email,
+      },
+    });
+    // res.json(savedStudent);
 
     return res.status(200).json({ msg: "Success!" });
   } catch (err) {
@@ -122,7 +140,7 @@ router.post("/login", async (req, res) => {
       student: {
         id: student._id,
         firstName: student.firstName,
-        email: student.email,
+        // email: student.email,
       },
     });
   } catch (err) {

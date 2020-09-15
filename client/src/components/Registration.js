@@ -1,5 +1,7 @@
-import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
+import StudentContext from "../context/StudentContext";
+
 import axios from "axios";
 
 const Registration = () => {
@@ -13,26 +15,65 @@ const Registration = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errs, setErrs] = useState({});
 
-  const onSubmitHandler = (e) => {
+  const { setStudentData } = useContext(StudentContext);
+
+  const submit = async (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:8000/api/students/new", {
-        firstName,
-        lastName,
-        yearInSchool,
-        school,
-        phone,
-        email,
-        password,
-      })
-      .then((res) => {
-        console.log(res.data);
-        if (res.data.error.errors) {
-          setErrs(res.data.error.errors);
-        }
-      })
-      .catch((err) => console.log(err));
+    const newStudent = {
+      firstName,
+      lastName,
+      yearInSchool,
+      school,
+      phone,
+      email,
+      password,
+      confirmPassword,
+    };
+    const loginRes = await axios.post("http://localhost:8000/students/register", {
+      firstName,
+      lastName,
+      yearInSchool,
+      school,
+      phone,
+      email,
+      password,
+      confirmPassword
+    });
+    setStudentData({
+      token: loginRes.data.token,
+      student: loginRes.data.student,
+    });
+    console.log("loginRes.data");
+    console.log(loginRes.data);
+    localStorage.setItem("auth-token", loginRes.data.token);
   };
+
+  // const registerRes = await axios.post(
+  //   "http://localhost:8000/students/register",
+  //   newStudent
+  // );
+
+
+  // const onSubmitHandler = (e) => {
+  //   e.preventDefault();
+  //   axios
+  //     .post("http://localhost:8000/api/students/new", {
+  //       firstName,
+  //       lastName,
+  //       yearInSchool,
+  //       school,
+  //       phone,
+  //       email,
+  //       password,
+  //     })
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       if (res.data.error.errors) {
+  //         setErrs(res.data.error.errors);
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   // const isPasswordInvalid = () => {
   //     return password.length < 8 || password !== confirmPassword;
@@ -162,11 +203,11 @@ const Registration = () => {
         <button
           className="btn btn-light"
           // disabled={isPasswordInvalid() || isEmailInvalid()}
-          onClick={onSubmitHandler}
+          onClick={submit}
         >
           Register!
         </button>
-        <Link to = "/login">Log in</Link>
+        <Link to="/login">Log in</Link>
       </form>
     </div>
   );

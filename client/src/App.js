@@ -6,6 +6,7 @@ import StudentPortal from "./components/StudentPortal";
 import Login from "./components/Login";
 import StudentContext from "./context/StudentContext";
 import axios from "axios";
+import Home from "./components/Home";
 
 function App() {
   const [studentData, setStudentData] = useState({
@@ -18,18 +19,17 @@ function App() {
     const checkLoggedIn = async () => {
       // define the function when the effect runs.
       let token = localStorage.getItem("auth-token"); // then goes to tutorial.routes to use 'token is Valid' method.
-      if (token === null) {
+      if (token == null) {
         localStorage.setItem("auth-token", "");
         token = "";
       }
-      const tokenRes = await axios.post(
+
+      let tokenRes = await axios.post(
         "http://localhost:8000/students/tokenIsValid",
         null,
         { headers: { "x-auth-token": token } }
       );
-        console.log(tokenRes.data);
-
-
+      console.log(tokenRes.data);
       if (tokenRes.data) {
         const studentRes = await axios.get("http://localhost:8000/students", {
           headers: { "x-auth-token": token },
@@ -40,8 +40,7 @@ function App() {
         });
       }
     };
-
-    checkLoggedIn(); // call the function
+    checkLoggedIn();
   }, []);
 
   return (
@@ -50,6 +49,7 @@ function App() {
         <StudentContext.Provider value={{ studentData, setStudentData }}>
           {/* value should store state, which is the currently logged in student. */}
           <Switch>
+            <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Registration} />
             <Route path="/portal" component={StudentPortal} />
