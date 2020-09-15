@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import TaskInput from './TaskInput';
 
 const StudentPortal = () => {
@@ -16,7 +15,7 @@ const StudentPortal = () => {
             </div>  
 
             <div>
-            <iframe className="flatIO-element" src="https://flat.io/embed/5f5ac8f8c4feb36761f94c07?playbackMetronome=count-in" height="350" width="55%" frameBorder="0" allowfullscreen allow="midi"></iframe>
+            <iframe title ="g-minor" className="flatIO-element" src="https://flat.io/embed/5f5ac8f8c4feb36761f94c07?playbackMetronome=count-in" height="350" width="55%" frameBorder="0" allowfullscreen allow="midi"></iframe>
             </div>
 
         </div>

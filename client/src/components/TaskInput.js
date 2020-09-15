@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 
 const TaskInput = () => {
   const [task, setTask] = useState("");
   const [list, setList] = useState([]);
 
-  const saveTasks = (e) => {
-    e.preventDefault();
-    axios.put("http://localhost:8000/api/students/tasks", {
-      tasks: list,
-    });
-  };
+  // const saveTasks = (e) => {
+  //   e.preventDefault();
+  //   axios.put("http://localhost:8000/api/students/tasks", {
+  //     tasks: list,
+  //   });
+  // };
 
   const handleChange = (e) => {
     setTask(e.target.value);

@@ -1,5 +1,5 @@
 import React, {useEffect, useContext } from 'react';
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import StudentContext from "../../context/StudentContext";
 
 export default function Home ()  {
@@ -9,7 +9,7 @@ export default function Home ()  {
     //if logged out, redirect to the home page.
     useEffect(() => {
         if (!studentData.student) history.push("/login");
-    }, [studentData])
+    }, [studentData, history])
 
     return(
         <div>
