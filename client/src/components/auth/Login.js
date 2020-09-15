@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import StudentContext from '../../context/StudentContext';
+
 
 const Login = () => {
   const [username, setUsername] = useState("");

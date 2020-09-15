@@ -6,10 +6,10 @@ const Home = () => {
     return(
         <div>
             <h1>Homepage</h1>
-            <div>
+            {/* <div>
                 <Link to="/register">Register</Link>
                 <Link to = "/login">Log in</Link>
-            </div>
+            </div> */}
         </div>
 
     )

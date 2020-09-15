@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import Registration from "./components/Registration";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import StudentPortal from "./components/StudentPortal";
-import Login from "./components/Login";
-import StudentContext from "./context/StudentContext";
+import StudentContext from './context/StudentContext';
 import axios from "axios";
-import Home from "./components/Home";
+
+import Home from "./components/pages/Home";
+import Registration from "./components/auth/Registration";
+import Login from "./components/auth/Login";
+import Header from "./components/layout/Header";
+import StudentPortal from "./components/StudentPortal";
 
 function App() {
   const [studentData, setStudentData] = useState({
@@ -48,6 +50,7 @@ function App() {
       <BrowserRouter>
         <StudentContext.Provider value={{ studentData, setStudentData }}>
           {/* value should store state, which is the currently logged in student. */}
+          <Header />
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />

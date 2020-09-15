@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import StudentContext from "../context/StudentContext";
+import StudentContext from "../../context/StudentContext";
 
 import axios from "axios";
 
@@ -15,7 +15,7 @@ const Registration = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errs, setErrs] = useState({});
 
-  const { setStudentData } = useContext(StudentContext);
+  // const { setStudentData } = useContext(StudentContext);
 
   const submit = async (e) => {
     e.preventDefault();
@@ -39,10 +39,10 @@ const Registration = () => {
       password,
       confirmPassword
     });
-    setStudentData({
-      token: loginRes.data.token,
-      student: loginRes.data.student,
-    });
+    // setStudentData({
+    //   token: loginRes.data.token,
+    //   student: loginRes.data.student,
+    // });
     console.log("loginRes.data");
     console.log(loginRes.data);
     localStorage.setItem("auth-token", loginRes.data.token);
