@@ -4,9 +4,9 @@ import AuthOptions1 from "../auth/AuthOptions1"
 
 export default function Header() {
   return (
-    <div>
+    <div id="header-auth">
       <Link to="/">
-        <h1>Home Page</h1>
+        <span style={{margin: "0 8px"}}>Home Page</span>
       </Link>
       <AuthOptions1 />
     </div>

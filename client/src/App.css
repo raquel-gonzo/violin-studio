@@ -60,3 +60,21 @@ button{
 #task-btn{
   margin-top: 15px;
 }
+
+#header-auth{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 30px auto;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  padding-right: 15px;
+  width: 85%;
+  background-color: lightgray;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.btn-nav{
+  margin: 0 8px;
+}

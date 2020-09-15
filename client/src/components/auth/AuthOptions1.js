@@ -22,11 +22,11 @@ export default function AuthOptions() {
     <nav className="auth-options">
       {/* Conditional rendering for  */}
       {studentData.student ? (
-        <button onClick={logout}>Logout</button>
+        <button className="btn btn-light btn-size btn-nav" onClick={logout}>Logout</button>
       ) : (
         <>
-          <button onClick={register}>Register</button>
-          <button onClick={login}>Login</button>
+          <button className="btn btn-light btn-size btn-nav" onClick={register}>Register</button>
+          <button className="btn btn-light btn-size btn-nav " onClick={login}>Login</button>
         </>
       )}
     </nav>

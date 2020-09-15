@@ -8,7 +8,7 @@ const StudentPortal = () => {
         <div className="reg">
             <div id="portal-header">
                 <h1 className="reg-header">Welcome, _____ </h1>
-                <button className="btn-size" className="btn btn-light">Log out</button>
+                {/* <button className="btn-size" className="btn btn-light">Log out</button> */}
             </div>
             <h3>Practice Journal:</h3>
             <div>
