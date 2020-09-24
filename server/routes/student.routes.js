@@ -202,4 +202,42 @@ router.put("/registerTask", auth, async (req, res) => {
   }
 });
 
+router.put("/deleteTask/:studentId/:taskTitle", async (req, res) => {
+  try {
+    console.log(req.params);
+    // make sure student is deleting a task that belongs to them.
+    const student = await Student.findOne({ _id: req.params.studentId });
+
+    if (!student)
+      return res
+      .status(400)
+      .json({ 
+        msg: "No student found with this ID." 
+      });
+    // console.log(student);
+    const { tasks } = student; //destructure student object 
+    // we only want to keep the tasks which don't match the title of the one we're passing
+    const filteredTasks = tasks.filter(task => task.title !== req.params.taskTitle); 
+    console.log(filteredTasks); // console.logs the tasks we're not deleting
+    
+    // update the tasks on the student to filteredTasks
+    const updatedTasks = { tasks: filteredTasks }; // utting filtered tasks (the ones we are keeping) into a new JS object, updated tasks. 
+    // first param of findOneAndUpdate: finding the student by id
+    // second param of findOneAndUpdate: what are we updating? in this case, the tasks
+    // the third param enables us to put the result of the update in a variable
+    const updatedStudent = await Student.findOneAndUpdate({_id: req.params.studentId}, updatedTasks, { // making a req to the DB passing the JS object, updated tasks as a second param
+      new: true
+    });
+
+    if (!updatedStudent) {
+      res.json({
+        message: "student failed to update"
+      })
+    }
+    res.json(filteredTasks);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = router;

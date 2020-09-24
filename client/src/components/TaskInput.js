@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import StudentContext from "../context/StudentContext";
 import List from './List';
+import DeleteButton from "./DeleteBtn";
 
 const TaskInput = () => {
   const {studentData} = useContext(StudentContext);
@@ -33,10 +34,10 @@ const TaskInput = () => {
 
     if (!token || !task) return;
 
-    axios.post("http://localhost:8000/tasks/", 
-      task, 
-      { headers: { "x-auth-token": token } },
-    )
+    // axios.post("http://localhost:8000/tasks/", 
+    //   task, 
+    //   { headers: { "x-auth-token": token } },
+    // )
     const newTasks = [...tasks, task];
     
     axios.put("http://localhost:8000/students/registerTask", 
@@ -69,15 +70,16 @@ const TaskInput = () => {
       </form>
 
       <div>
-
-        {/* <List /> */}
-
         <ul>
           {tasks && tasks.map((task, index) => {
+            console.log(task);
             return (
+              <>
               <li key={index}> 
                 {task.title} <input type="checkbox" />
               </li>
+              <DeleteButton key={"delete" + index} task={task} /> 
+              </>
             );
           })}
         </ul>

@@ -29,14 +29,14 @@
 }
 
 body{
-  background-color: #B0E0E6;
+  background-color: #bee4e8;
 }
 
 .error-message {
   width: 100%;
   margin-top: .25rem;
   font-size: 80%;
-  color: #dc3545;
+  color:#ec6139;
 }
 
  #login-btn{
@@ -77,4 +77,8 @@ button{
 
 .btn-nav{
   margin: 0 8px;
+}
+
+ul, li {
+  list-style-type: none;
 }

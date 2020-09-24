@@ -29,7 +29,6 @@ mongoose.connect(
 
 // set up routes
 app.use("/students", require("./server/routes/student.routes"));
-app.use("/tasks", require("./server/routes/task.routes"));
 
 app.listen(PORT, () => {
     console.log(`Listening on port: ${PORT}`)
