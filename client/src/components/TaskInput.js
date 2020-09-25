@@ -11,6 +11,11 @@ const TaskInput = () => {
     studentId: ""
   });
   const [tasks, setTasks] = useState([]);
+ 
+  const removeFromDom = taskTitle => {
+    setTasks(tasks.filter(task => task.title !== taskTitle)); // dont use the studentId because it's the same for each task. 
+    // we need to use the array of tasks, not one individual tasks. we are updating the list.
+  }
 
   // once studentData.students is defined, set it to tasks in state
   useEffect(() => {
@@ -34,10 +39,6 @@ const TaskInput = () => {
 
     if (!token || !task) return;
 
-    // axios.post("http://localhost:8000/tasks/", 
-    //   task, 
-    //   { headers: { "x-auth-token": token } },
-    // )
     const newTasks = [...tasks, task];
     
     axios.put("http://localhost:8000/students/registerTask", 
@@ -70,21 +71,19 @@ const TaskInput = () => {
       </form>
 
       <div>
-        <ul>
+        <ul style={{padding: 0}}>
           {tasks && tasks.map((task, index) => {
-            console.log(task);
             return (
-              <>
-              <li key={index}> 
-                {task.title} <input type="checkbox" />
-              </li>
-              <DeleteButton key={"delete" + index} task={task} /> 
-              </>
+              <div key={"container" + index}>
+                <li key={"li" + index}> 
+                  {task.title} <input key={"input" + index} type="checkbox" />
+                </li>
+                <DeleteButton key={"delete" + index} task={task} removeFromDom={removeFromDom} /> 
+              </div>
             );
           })}
         </ul>
       </div>
-
     </div>
   );
 };

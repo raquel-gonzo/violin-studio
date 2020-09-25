@@ -4,6 +4,8 @@ import axios from 'axios';
 const DeleteButton = (props) => {
     let token = localStorage.getItem("auth-token");
 
+    const {removeFromDom} = props;
+
     const deleteTasks = (task) => {
         console.log(task);
         axios.put('http://localhost:8000/students/deleteTask/' + task.studentId + "/" + task.title,
@@ -15,11 +17,11 @@ const DeleteButton = (props) => {
         )
         .then(res => {
             console.log(res);
-            // props.removeFromDom(task.studentId)
+            removeFromDom(task.title);
         })
     }
     return (
-        <button className="btn btn-light" onClick={() => deleteTasks(props.task)}>
+        <button className="btn btn-light" onClick={(e) => deleteTasks(props.task)}>
             Delete
         </button>
     )

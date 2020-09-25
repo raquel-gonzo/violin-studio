@@ -13,7 +13,7 @@ const List = (props) => {
             <>
               <li key={index}>
                 {" "}
-                {task} <input type="checkbox" />
+                {task} <input key={"input" + index} type="checkbox" />
               </li>
             </>
           );
