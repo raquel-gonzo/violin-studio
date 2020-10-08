@@ -71,10 +71,10 @@ const TaskInput = () => {
       </form>
 
       <div>
-        <ul style={{padding: 0}}>
+        <ul id='list-container' style={{padding: 0}}>
           {tasks && tasks.map((task, index) => {
             return (
-              <div key={"container" + index}>
+                <div className="list-style" key={"container" + index}>
                 <li key={"li" + index}> 
                   {task.title} <input key={"input" + index} type="checkbox" />
                 </li>

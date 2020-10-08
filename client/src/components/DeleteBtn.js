@@ -21,7 +21,7 @@ const DeleteButton = (props) => {
         })
     }
     return (
-        <button className="btn btn-light" onClick={(e) => deleteTasks(props.task)}>
+        <button className="btn btn-light delete-btn" onClick={(e) => deleteTasks(props.task)}>
             Delete
         </button>
     )

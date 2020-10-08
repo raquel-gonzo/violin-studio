@@ -11,10 +11,6 @@
   align-items: center;
 }
 
-/* .form-control, button, select{
-  width: 250px;
-} */
-
 .reg-header{
   margin-bottom: 30px;
   padding-top: 20px;
@@ -81,4 +77,31 @@ button{
 
 ul, li {
   list-style-type: none;
+  margin-top: 7px;
+  display: flex;
+  padding-left: 10%;
+}
+
+#list-container{
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+  margin: 0px auto;
+  border: double black;
+  margin-bottom: 20px;
+}
+
+.list-style{
+  display: flex;
+  padding:10px;
+}
+
+.delete-btn{
+  display: flex;
+  margin-left: 10%;
+}
+
+input{
+  margin-top: 5px;
+  margin-left: 10px;
 }
