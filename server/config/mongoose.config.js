@@ -1,10 +1,5 @@
 const mongoose = require('mongoose');
 
-// mongoose.connect('mongodb://localhost/violin_studio_DB', {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-// })  
-
     mongoose.connect(
         process.env.MONGODB_CONNECTION_STRING,
         {
