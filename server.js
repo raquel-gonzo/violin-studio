@@ -13,7 +13,7 @@ app.use(cors());
 const PORT = process.env.PORT || 8000;   // environment variable. 
 
 // set up mongoose
-require('./config/mongoose.config');
+require('./server/config/mongoose.config');
 mongoose.set('useFindAndModify', false);
 
 if (process.env.NODE_ENV === 'production'){
@@ -21,7 +21,7 @@ if (process.env.NODE_ENV === 'production'){
 }
 
 // set up routes
-app.use("/students", require("./routes/student.routes"));
+app.use("/students", require("./server/routes/student.routes"));
 
 app.listen(PORT, () => {
     console.log(`Listening on port: ${PORT}`)
