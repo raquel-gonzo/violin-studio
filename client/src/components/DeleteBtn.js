@@ -5,10 +5,11 @@ const DeleteButton = (props) => {
     let token = localStorage.getItem("auth-token");
 
     const {removeFromDom} = props;
+    const baseURL = process.env.BASE_URL || "http://localhost:8000";
 
     const deleteTasks = (task) => {
         console.log(task);
-        axios.put('http://localhost:8000/students/deleteTask/' + task.studentId + "/" + task.title,
+        axios.put(baseURL + '/students/deleteTask/' + task.studentId + "/" + task.title,
             {
                 task: task,
                 

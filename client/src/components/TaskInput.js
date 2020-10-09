@@ -40,8 +40,9 @@ const TaskInput = () => {
     if (!token || !task) return;
 
     const newTasks = [...tasks, task];
-    
-    axios.put("http://localhost:8000/students/registerTask", 
+    const baseURL = process.env.BASE_URL || "http://localhost:8000";
+
+    axios.put(baseURL + "/students/registerTask", 
       { 
         tasks: newTasks 
       },

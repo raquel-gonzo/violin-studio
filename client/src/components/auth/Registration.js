@@ -32,9 +32,10 @@ const Registration = () => {
         password,
         confirmPassword,
       };
+      const baseURL = process.env.BASE_URL || "http://localhost:8000";
 
       const registerResponse = await axios.post(
-        "http://localhost:8000/students/register",
+        baseURL + "/students/register",
         newStudent
       );
 

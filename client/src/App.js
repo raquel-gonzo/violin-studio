@@ -25,9 +25,10 @@ function App() {
         localStorage.setItem("auth-token", "");
         token = "";
       }
+      const baseURL = process.env.BASE_URL || "http://localhost:8000";
 
       let tokenRes = await axios.post(
-        "http://localhost:8000/students/tokenIsValid",
+        baseURL + "/students/tokenIsValid",
         null,
         { headers: { "x-auth-token": token } }
       );

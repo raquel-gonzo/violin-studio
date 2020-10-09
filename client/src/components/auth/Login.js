@@ -16,8 +16,10 @@ export default function Login() {
     try {
       e.preventDefault();
       const loginStudent = { firstName, password };
+      const baseURL = process.env.BASE_URL || "http://localhost:8000";
+
       const loginRes = await axios.post(
-        "http://localhost:8000/students/login",
+        baseURL + "/students/login",
         loginStudent
       );
       setStudentData({
