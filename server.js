@@ -17,13 +17,6 @@ const PORT = process.env.PORT || 8000;   // environment variable.
 require('./server/config/mongoose.config');
 mongoose.set('useFindAndModify', false);
 
-// https://stackoverflow.com/questions/51866714/react-router-routes-dont-work-when-deployed-to-heroku
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, 'client/build')));
-    app.get("/*", function(req, res) {
-        res.sendFile(path.join(__dirname, "./client/build/index.html"));
-    });
-}
 
 // set up routes
 app.use("/students", require("./server/routes/student.routes"));
@@ -31,3 +24,12 @@ app.use("/students", require("./server/routes/student.routes"));
 app.listen(PORT, () => {
     console.log(`Listening on port: ${PORT}`)
 });
+
+// this needs to go last since we're using *
+// https://stackoverflow.com/questions/51866714/react-router-routes-dont-work-when-deployed-to-heroku
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, 'client/build')));
+    app.get("/*", function(req, res) {
+        res.sendFile(path.join(__dirname, "./client/build/index.html"));
+    });
+}
