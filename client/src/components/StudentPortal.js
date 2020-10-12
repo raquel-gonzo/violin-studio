@@ -7,7 +7,6 @@ import Embed from "flat-embed";
 const StudentPortal = () => {
   const { studentData } = useContext(StudentContext);
   const history = useHistory();
-
   const getScore = () => {
     var container = document.getElementById("embed-container");
     if (container != null) {
@@ -47,8 +46,8 @@ const StudentPortal = () => {
           <TaskInput />
         </div>
       </div>
-
-      <div id="embed-container">{getScore()}</div>
+      
+      <div id="embed-container"></div>
     </div>
   );
 };
