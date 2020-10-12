@@ -9,7 +9,7 @@ export default function AuthOptions() {
   const history = useHistory();
 
   const register = () => history.push("/register");
-  const login = () => history.push("/login");
+  const login = () => history.push("/");
 
   const logout = () => {
       setStudentData({

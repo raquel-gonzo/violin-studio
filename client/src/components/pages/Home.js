@@ -8,7 +8,7 @@ export default function Home ()  {
 
     //if logged out, redirect to the login page.
     useEffect(() => {
-        if (!studentData.student) history.push("/login");
+        if (!studentData.student) history.push("/");
     }, [studentData, history])
 
     return(

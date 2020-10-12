@@ -27,7 +27,7 @@ const StudentPortal = () => {
   useEffect(() => {
     const authToken = localStorage.getItem("auth-token");
 
-    if (!authToken && !studentData.student) history.push("/login");
+    if (!authToken && !studentData.student) history.push("/");
   }, [studentData.student, history]);
 
   return (
