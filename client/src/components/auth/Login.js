@@ -16,7 +16,7 @@ export default function Login() {
     try {
       e.preventDefault();
       const loginStudent = { firstName, password };
-      const baseURL = process.env.BASE_URL || "http://localhost:8000";
+      const baseURL = process.env.REACT_APP_BASE_URL || "http://localhost:8000";
 
       const loginRes = await axios.post(
         baseURL + "/students/login",
@@ -27,8 +27,6 @@ export default function Login() {
         student: loginRes.data.student,
       });
 
-      console.log("loginRes.data");
-      console.log(loginRes.data);
       localStorage.setItem("auth-token", loginRes.data.token);
       history.push("/portal");
     } catch (error) {
@@ -64,7 +62,6 @@ export default function Login() {
           Login
         </button>
       </form>
-      {/* <Link to="/register">Register</Link> */}
     </div>
   );
 }

@@ -4,7 +4,6 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import StudentContext from './context/StudentContext';
 import axios from "axios";
 
-import Home from "./components/pages/Home";
 import Registration from "./components/auth/Registration";
 import Login from "./components/auth/Login";
 import Header from "./components/layout/Header";
@@ -25,16 +24,15 @@ function App() {
         localStorage.setItem("auth-token", "");
         token = "";
       }
-      const baseURL = process.env.BASE_URL || "http://localhost:8000";
-
+      const baseURL = process.env.REACT_APP_BASE_URL || "http://localhost:8000";
       let tokenRes = await axios.post(
         baseURL + "/students/tokenIsValid",
         null,
         { headers: { "x-auth-token": token } }
       );
-      console.log(tokenRes.data);
       if (tokenRes.data) {
-        const studentRes = await axios.get("http://localhost:8000/students", {
+        const studentRes = await axios.get(baseURL + 
+        "/students", {
           headers: { "x-auth-token": token },
         });
         setStudentData({
@@ -53,8 +51,7 @@ function App() {
           {/* value should store state, which is the currently logged in student. */}
           <Header />
           <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/login" component={Login} />
+            <Route exact path="/" component={Login} />
             <Route path="/register" component={Registration} />
             <Route path="/portal" component={StudentPortal} />
           </Switch>

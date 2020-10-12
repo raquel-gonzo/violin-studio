@@ -11,9 +11,7 @@ const StudentPortal = () => {
   const getScore = () => {
     var container = document.getElementById("embed-container");
     if (container != null) {
-      console.log(process.env);
-      console.log(process.env.REACT_APP_FLAT_EMBED_ID);
-      var embed = new Embed(container, {
+      new Embed(container, {
         width: "85%",
         height: "900",
         score: "5f7e53de891a521f30d475b2",
@@ -30,7 +28,7 @@ const StudentPortal = () => {
     const authToken = localStorage.getItem("auth-token");
 
     if (!authToken && !studentData.student) history.push("/login");
-  }, [studentData.student]);
+  }, [studentData.student, history]);
 
   return (
     <div className="reg">

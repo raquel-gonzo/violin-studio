@@ -32,8 +32,7 @@ const Registration = () => {
         password,
         confirmPassword,
       };
-      const baseURL = process.env.BASE_URL || "http://localhost:8000";
-
+      const baseURL = process.env.REACT_APP_BASE_URL || "http://localhost:8000";
       const registerResponse = await axios.post(
         baseURL + "/students/register",
         newStudent
@@ -44,8 +43,6 @@ const Registration = () => {
         student: registerResponse.data.student,
       });
 
-      console.log("registerResponse.data");
-      console.log(registerResponse.data);
       localStorage.setItem("auth-token", registerResponse.data.token);
       history.push("/portal");
     } catch (error) {

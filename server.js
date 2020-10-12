@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 8000;   // environment variable.
 require('./server/config/mongoose.config');
 mongoose.set('useFindAndModify', false);
 
-if (process.env.NODE_ENV === 'production'){
+if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
 }
 

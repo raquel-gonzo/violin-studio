@@ -17,7 +17,6 @@ router.post("/register", async (req, res) => {
       password,
       confirmPassword,
     } = req.body;
-    // const { firstName, email, password, confirmPassword} = req.body;
 
     //validate
     if (!firstName) {
@@ -69,7 +68,6 @@ router.post("/register", async (req, res) => {
     // pw hash wit bcrypt.
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(password, salt);
-    console.log(passwordHash);
 
     const newStudent = new Student({
       firstName,
@@ -80,12 +78,8 @@ router.post("/register", async (req, res) => {
       email,
       password: passwordHash,
     });
-    console.log("newStudent");
-    console.log(newStudent);
 
     const savedStudent = await newStudent.save();
-    console.log("savedStudent");
-    console.log(savedStudent);
     const foundStudent = await Student.findOne({
       email: savedStudent.email
     });
@@ -124,7 +118,7 @@ router.post("/login", async (req, res) => {
     if (!student) {
       return res
         .status(400)
-        .json({ msg: "There is not account associated with that name." });
+        .json({ msg: "There is no account associated with that name." });
     }
 
     //match the passwords
@@ -204,7 +198,6 @@ router.put("/registerTask", auth, async (req, res) => {
 
 router.put("/deleteTask/:studentId/:taskTitle", async (req, res) => {
   try {
-    console.log(req.params);
     // make sure student is deleting a task that belongs to them.
     const student = await Student.findOne({ _id: req.params.studentId });
 
@@ -214,11 +207,9 @@ router.put("/deleteTask/:studentId/:taskTitle", async (req, res) => {
       .json({ 
         msg: "No student found with this ID." 
       });
-    // console.log(student);
     const { tasks } = student; //destructure student object 
     // we only want to keep the tasks which don't match the title of the one we're passing
     const filteredTasks = tasks.filter(task => task.title !== req.params.taskTitle); 
-    console.log(filteredTasks); // console.logs the tasks we're not deleting
     
     // update the tasks on the student to filteredTasks
     const updatedTasks = { tasks: filteredTasks }; // utting filtered tasks (the ones we are keeping) into a new JS object, updated tasks. 

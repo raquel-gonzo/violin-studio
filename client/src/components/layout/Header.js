@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import AuthOptions1 from "../auth/AuthOptions1"
 
 export default function Header() {

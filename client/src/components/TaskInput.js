@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import StudentContext from "../context/StudentContext";
-import List from './List';
 import DeleteButton from "./DeleteBtn";
 
 const TaskInput = () => {
@@ -19,8 +18,6 @@ const TaskInput = () => {
 
   // once studentData.students is defined, set it to tasks in state
   useEffect(() => {
-    console.log("studentData");
-    console.log(studentData);
     if (studentData.student && studentData.student.tasks) {
       setTasks(studentData.student.tasks);
     }
@@ -40,7 +37,7 @@ const TaskInput = () => {
     if (!token || !task) return;
 
     const newTasks = [...tasks, task];
-    const baseURL = process.env.BASE_URL || "http://localhost:8000";
+    const baseURL = process.env.REACT_APP_BASE_URL || "http://localhost:8000";
 
     axios.put(baseURL + "/students/registerTask", 
       { 

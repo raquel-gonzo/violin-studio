@@ -5,10 +5,9 @@ const DeleteButton = (props) => {
     let token = localStorage.getItem("auth-token");
 
     const {removeFromDom} = props;
-    const baseURL = process.env.BASE_URL || "http://localhost:8000";
+    const baseURL = process.env.REACT_APP_BASE_URL || "http://localhost:8000";
 
     const deleteTasks = (task) => {
-        console.log(task);
         axios.put(baseURL + '/students/deleteTask/' + task.studentId + "/" + task.title,
             {
                 task: task,
@@ -17,7 +16,6 @@ const DeleteButton = (props) => {
             { headers: { "x-auth-token": token } }
         )
         .then(res => {
-            console.log(res);
             removeFromDom(task.title);
         })
     }
