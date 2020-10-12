@@ -32,6 +32,7 @@ const Registration = () => {
         password,
         confirmPassword,
       };
+      
       const baseURL = process.env.REACT_APP_BASE_URL || "http://localhost:8000";
       const registerResponse = await axios.post(
         baseURL + "/students/register",
